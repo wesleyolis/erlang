@@ -1,1 +1,5 @@
 *.un~
+.eunit
+ebin
+*.dump
+*.swp
