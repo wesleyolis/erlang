@@ -9,7 +9,20 @@ clean:
 test: app test/*.erl
 	./rebar eunit
 
-all: clean test
+dialyzer: | all dialyzer_core  dialyzer_src
+  
+dialyzer_src: src/*.erl src/*/*.erl include/*.hrl
+	dialyzer -r src --src 
+
+dialyzer_core: /home/wesley/.dialyzer_plt
+
+/home/wesley/.dialyzer_plt:
+	dialyzer --build_plt --apps erts kernel stdlib
+
+dialyzer_clean:
+	rm -f ~/.dialyzer_plt
+
+all: clean test 
 
 app: ebin/play_erlang.app
 
